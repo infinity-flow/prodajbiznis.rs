@@ -1166,3 +1166,52 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 .steps--progress.is-run .step:nth-child(2) { transition-delay: .8s; }
 .steps--progress.is-run .step:nth-child(3) { transition-delay: 1.6s; }
 .steps--progress.is-run .step:nth-child(4) { transition-delay: 2.4s; }
+
+/* ==========================================================
+   Hero 3D: manji naslov levo, scena desno preko oba reda
+   ========================================================== */
+.hero { --h1fs: clamp(84px, 15vw, 260px); }
+@media (max-width: 760px) { .hero { --h1fs: 24vw; } }
+@media (max-width: 600px) { .hero { --h1fs: 27vw; } }
+.hero h1 { font-size: var(--h1fs); flex: none; }
+
+.hero-head { align-items: stretch; gap: clamp(24px, 4vw, 64px); }
+.hero-icon {
+  flex: 1 1 auto;
+  position: relative;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  margin-top: calc(7.76px - 0.0547 * var(--h1fs));
+  margin-bottom: calc(24px - 0.0573 * var(--h1fs));
+}
+.hero-icon .hero-scene {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-icon.is-3d .hero-scene { display: none; }
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* bez scene ispod 900px: veći naslov */
+@media (max-width: 900px) {
+  .hero-icon { display: none; }
+  .hero { --h1fs: 22vw; }
+}
+@media (max-width: 600px) { .hero { --h1fs: 27vw; } }
+/* fino poravnanje razmaka eyebrow → naslov (12px) */
+@media (min-width: 901px) and (max-width: 1699px) {
+  .hero h1 { margin-top: calc(6.76px - 0.0547em); }
+  .hero-icon { margin-top: calc(6.76px - 0.0547 * var(--h1fs)); }
+}
+@media (min-width: 1700px) {
+  .hero h1 { margin-top: calc(8.76px - 0.0547em); }
+  .hero-icon { margin-top: calc(8.76px - 0.0547 * var(--h1fs)); }
+}

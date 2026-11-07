@@ -1,6 +1,8 @@
 (function () {
   "use strict";
 
+  var SCRIPT_SRC = document.currentScript ? document.currentScript.src : "assets/js/main.js";
+
   var S = window.SITE || {};
   var page = document.body.getAttribute("data-page") || "";
 
@@ -132,9 +134,18 @@
       var n = (i + 1) % words.length;
       stepSet(words, i, n);
       if (icons.length === words.length) { stepSet(icons, i, n); catchIt(); }
+      window.dispatchEvent(new CustomEvent("hero:phase", { detail: { index: n } }));
       i = n;
     }, 3000);
   });
+
+  /* ---------- Hero 3D (samo desktop, učitava se naknadno) ---------- */
+
+  if (document.querySelector("[data-scene]") && window.matchMedia("(min-width: 901px)").matches) {
+    try {
+      import(new URL("hero3d.js", SCRIPT_SRC).href).catch(function () {});
+    } catch (e) {}
+  }
 
   /* ---------- Reveal on scroll ---------- */
 
