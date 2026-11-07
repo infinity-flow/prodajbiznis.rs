@@ -1231,3 +1231,25 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 .draw-scene .ln { stroke-width: 0.9; }
 .draw-scene .fill { fill: #efefec; stroke: none; }
 .draw-icon { visibility: hidden; }
+
+/* ---------- Hero: statična slika ruku (Three.js render) ---------- */
+.hero-hands picture {
+  position: absolute;
+  inset: 0;
+}
+.hero-hands img {
+  position: absolute;
+  left: 0;
+  top: -16%;
+  width: 100%;
+  height: 120%;
+}
+.hero-hands img {
+  object-fit: contain;
+  object-position: right center;
+  /* podlaktice se blago gube na ivicama */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 2%, #000 22%, #000 72%, transparent 96%);
+          mask-image: linear-gradient(to bottom, transparent 2%, #000 22%, #000 72%, transparent 96%);
+}
+
+.hero-actions { position: relative; z-index: 1; }

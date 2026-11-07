@@ -114,72 +114,16 @@
     nxt.classList.add("is-active");
   }
 
-  /* Ikonica se iscrta linijom (GSAP DrawSVG), stoji, pa se povuče unazad — u ritmu reči */
-  var PHASE_MS = 4000;
-  var draw = document.querySelector("[data-draw]");
-  var drawIcons = draw ? [].slice.call(draw.querySelectorAll(".draw-icon")) : [];
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var hasGsap = !!(window.gsap && window.DrawSVGPlugin);
-  var drawTl = null;
-
-  if (hasGsap) {
-    gsap.registerPlugin(DrawSVGPlugin);
-    drawIcons.forEach(function (g) {
-      gsap.set(g, { autoAlpha: 0, transformOrigin: "50% 60%" });
-      gsap.set(g.querySelectorAll(".ln"), { drawSVG: "0%" });
-      gsap.set(g.querySelectorAll(".fill"), { opacity: 0 });
-    });
-  }
-
-  function drawPhase(idx) {
-    if (!drawIcons.length) return;
-    var g = drawIcons[idx];
-    if (!hasGsap || reduceMotion) {
-      drawIcons.forEach(function (x, k) { x.style.opacity = k === idx ? 1 : 0; x.style.visibility = k === idx ? "visible" : "hidden"; });
-      return;
-    }
-    if (drawTl) drawTl.progress(1).kill();
-    drawIcons.forEach(function (x) { if (x !== g) gsap.set(x, { autoAlpha: 0 }); });
-
-    var lines = g.querySelectorAll(".ln");
-    var fills = g.querySelectorAll(".fill");
-    var isCoin = g.classList.contains("draw-icon--coin");
-    var ridges = g.querySelectorAll(".ln--ridge");
-    var main = [].filter.call(lines, function (l) { return !l.classList.contains("ln--ridge"); });
-
-    var tl = gsap.timeline();
-    tl.set(g, { autoAlpha: 1 })
-      .set(lines, { drawSVG: "0%" })
-      .set(fills, { opacity: 0 })
-      // ulazak: blago "sleganje" dok se crta
-      .fromTo(g, { scale: 0.94, y: 6, rotation: isCoin ? -8 : 0 },
-        { scale: 1, y: 0, rotation: 0, duration: 1.6, ease: "power3.out" }, 0.1)
-      // potezi redom
-      .fromTo(main, { drawSVG: "0%" },
-        { drawSVG: "100%", duration: 0.85, ease: "power2.inOut", stagger: isCoin ? 0.16 : 0.1 }, 0.15);
-    if (ridges.length) {
-      tl.fromTo(ridges, { drawSVG: "0%" }, { drawSVG: "100%", duration: 0.25, ease: "power1.out", stagger: 0.05 }, 0.75);
-    }
-    // završni detalj: ispuna (staklo izloga / lice novčića)
-    tl.to(fills, { opacity: 1, duration: 0.5, ease: "power1.out" }, ">-0.2")
-      // povlačenje unazad, obrnutim redom
-      .to(fills, { opacity: 0, duration: 0.25, ease: "power1.in" }, (PHASE_MS / 1000) - 1.05)
-      .to(lines, { drawSVG: "100% 100%", duration: 0.55, ease: "power2.in", stagger: { each: 0.035, from: "end" } }, (PHASE_MS / 1000) - 1.0)
-      .to(g, { scale: 0.97, y: -4, duration: 0.8, ease: "power2.in" }, (PHASE_MS / 1000) - 1.0)
-      .set(g, { autoAlpha: 0 });
-    drawTl = tl;
-  }
+  var PHASE_MS = 3000;
 
   document.querySelectorAll("[data-rotator]").forEach(function (rot) {
     var words = [].slice.call(rot.querySelectorAll(".rw"));
     if (words.length < 2) return;
     var i = 0;
-    drawPhase(0);
     setInterval(function () {
       if (document.hidden) return;
       var n = (i + 1) % words.length;
       stepSet(words, i, n);
-      drawPhase(n);
       i = n;
     }, PHASE_MS);
   });
