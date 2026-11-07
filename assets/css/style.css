@@ -88,7 +88,7 @@ h3, .h3 { font-size: clamp(26px, 2.6vw, 40px); line-height: 0.95; }
   align-items: center;
   gap: 10px;
 }
-.eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+
 
 .lead { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; max-width: 46ch; }
 .muted { color: var(--grey-3); }
@@ -165,7 +165,7 @@ h3, .h3 { font-size: clamp(26px, 2.6vw, 40px); line-height: 0.95; }
   height: 76px;
   gap: 24px;
 }
-.logo img { height: 26px; width: auto; }
+.logo img { height: 32px; width: auto; }
 
 .nav { display: flex; align-items: center; gap: 34px; }
 .nav a {
@@ -885,7 +885,7 @@ h3, .h3 { font-size: clamp(26px, 2.6vw, 40px); line-height: 0.95; }
 h2, .h2, .statement { line-height: .92; }
 @media (max-width: 600px) {
   .hero h1 { font-size: 24vw; }
-  .hero-top .eyebrow:last-child { display: none; }
+
 }
 
 /* ---------- Rilsovi kao video ---------- */
@@ -948,3 +948,43 @@ h2, .h2, .statement { line-height: .92; }
   cursor: pointer;
 }
 .reel-lightbox__close:hover { background: var(--white); color: var(--black); }
+
+/* ==========================================================
+   Zaobljene ivice + razmak između kartica
+   ========================================================== */
+:root { --r-lg: 22px; --r-md: 16px; --r-sm: 12px; }
+
+.btn, .chip, .tag, .check span { border-radius: 999px; }
+.icon-btn, .nav-toggle, .reel-lightbox__close, .card__price .go { border-radius: 50%; }
+.modal__close { border-radius: 0 var(--r-lg) 0 var(--r-md); }
+
+/* Kartice oglasa: svaka zasebna, sa razmakom */
+.listings {
+  gap: clamp(14px, 1.6vw, 22px);
+  border: 0;
+}
+.card {
+  border: 2px solid var(--black);
+  border-radius: var(--r-lg);
+}
+
+/* Rilsovi */
+.reel { border-radius: var(--r-lg); }
+.reel-lightbox video { border-radius: var(--r-lg); }
+
+/* Filteri */
+.filters { border-radius: var(--r-md); overflow: hidden; }
+
+/* Modal */
+.modal { border-radius: var(--r-lg); overflow: hidden; }
+.modal[open] { overflow: auto; }
+
+/* Ostali blokovi */
+.portrait, .form-success, .empty { border-radius: var(--r-lg); }
+.field input:focus, .field select:focus, .field textarea:focus { border-radius: var(--r-sm) var(--r-sm) 0 0; }
+.filters label:focus-within { border-radius: 0; }
+
+.section.on-dark { border-radius: var(--r-lg); margin-inline: clamp(8px, 1.2vw, 16px); }
+main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0; margin-inline: 0; }
+.mega { line-height: .98; }
+.btn:focus-visible { outline-offset: 4px; }
