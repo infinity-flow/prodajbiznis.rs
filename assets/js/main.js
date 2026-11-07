@@ -22,7 +22,7 @@
         '<a class="logo" href="index.html" aria-label="Prodaj biznis — početna"><img src="assets/img/logo.svg" alt="Prodaj biznis" width="583" height="94"></a>' +
         '<button class="nav-toggle" aria-label="Meni" aria-expanded="false" aria-controls="nav"><span></span></button>' +
         '<nav class="nav" id="nav" aria-label="Glavni meni">' +
-          NAV.slice(0, 4).map(function (n) {
+          NAV.slice(1, 4).map(function (n) {
             return '<a href="' + n.href + '"' + (n.key === page ? ' aria-current="page"' : "") + ">" + n.label + "</a>";
           }).join("") +
           '<a class="btn" href="kontakt.html"' + (page === "kontakt" ? ' aria-current="page"' : "") + '>Kontakt <span class="arrow">→</span></a>' +
@@ -57,7 +57,7 @@
           "</ul></div>" +
         "</div>" +
         '<div class="footer-logo"><img src="assets/img/logo-white.svg" alt="" width="583" height="94"></div>' +
-        '<div class="footer-bottom"><span>© ' + new Date().getFullYear() + " Prodaj biznis. Sva prava zadržana.</span><span>Diskretno posredovanje u kupoprodaji biznisa</span></div>" +
+        '<div class="footer-bottom"><span>© ' + new Date().getFullYear() + " Prodaj biznis. Sva prava zadržana.</span><span>Izrada sajta — <a href=\"https://infinityflow.rs\" target=\"_blank\" rel=\"noopener\" class=\"credit\">InfinityFlow</a></span></div>" +
       "</div>";
   }
 

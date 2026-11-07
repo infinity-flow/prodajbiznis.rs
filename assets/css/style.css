@@ -1000,3 +1000,5 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 .rw.is-active { transform: none; }
 .rw.is-leaving { transform: translateY(-105%); }
 @media (max-width: 600px) { .hero h1 { font-size: 27vw; } }
+.footer-bottom .credit { color: var(--white); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.footer-bottom .credit:hover { text-decoration-thickness: 2px; }
