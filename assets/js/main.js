@@ -19,7 +19,7 @@
     header.className = "site-header";
     header.innerHTML =
       '<div class="wrap">' +
-        '<a class="logo" href="index.html" aria-label="Prodaj biznis — početna"><img src="assets/img/logo.svg" alt="Prodaj biznis" width="258" height="66"></a>' +
+        '<a class="logo" href="index.html" aria-label="Prodaj biznis — početna"><img src="assets/img/logo.svg" alt="Prodaj biznis" width="583" height="94"></a>' +
         '<button class="nav-toggle" aria-label="Meni" aria-expanded="false" aria-controls="nav"><span></span></button>' +
         '<nav class="nav" id="nav" aria-label="Glavni meni">' +
           NAV.slice(0, 4).map(function (n) {
@@ -56,7 +56,7 @@
             '<li><a href="' + S.instagram + '" target="_blank" rel="noopener">Instagram ' + S.instagramHandle + "</a></li>" +
           "</ul></div>" +
         "</div>" +
-        '<div class="footer-logo"><img src="assets/img/logo-white.svg" alt="" width="258" height="66"></div>' +
+        '<div class="footer-logo"><img src="assets/img/logo-white.svg" alt="" width="583" height="94"></div>' +
         '<div class="footer-bottom"><span>© ' + new Date().getFullYear() + " Prodaj biznis. Sva prava zadržana.</span><span>Diskretno posredovanje u kupoprodaji biznisa</span></div>" +
       "</div>";
   }
