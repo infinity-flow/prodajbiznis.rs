@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kupi biznis — biznisi na prodaju | Prodaj biznis</title>
+  <meta name="description" content="Biznisi na prodaju u Srbiji: ugostiteljstvo, trgovina, proizvodnja, turizam, online biznisi. Provereni podaci o prometu i dobiti.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="kupi">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">Biznisi na prodaju</span>
+        <h1>Kupi<br><span class="outline">biznis</span></h1>
+        <div class="page-hero__row">
+          <p class="lead">Poslovi koji već rade, imaju klijente i promet. Kliknite na oglas za detalje, a naziv firme otkrivamo ozbiljnim kupcima.</p>
+          <a class="btn btn--ghost" href="kontakt.html">Tražim nešto određeno <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section--tight">
+      <div class="wrap">
+        <div class="filters" role="search">
+          <label><small>Pretraga</small><input id="f-q" type="search" placeholder="Kafić, salon, web shop…"></label>
+          <label><small>Delatnost</small><select id="f-cat"><option value="">Sve</option></select></label>
+          <label><small>Grad</small><select id="f-city"><option value="">Svi</option></select></label>
+          <label><small>Cena do</small>
+            <select id="f-price">
+              <option value="">Bez limita</option>
+              <option value="50000">50.000 €</option>
+              <option value="100000">100.000 €</option>
+              <option value="200000">200.000 €</option>
+              <option value="300000">300.000 €</option>
+            </select>
+          </label>
+          <label><small>Sortiraj</small>
+            <select id="f-sort">
+              <option value="new">Najnovije</option>
+              <option value="price-asc">Cena ↑</option>
+              <option value="price-desc">Cena ↓</option>
+              <option value="profit">Najveća dobit</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="results-bar">
+          <strong id="results-count" aria-live="polite">20 biznisa</strong>
+          <div class="chips" id="chips">
+            <button type="button" class="chip" data-active aria-pressed="false">Samo aktivni</button>
+            <button type="button" class="chip" data-reset>Poništi filtere</button>
+          </div>
+        </div>
+
+        <div class="listings" id="all-listings"></div>
+        <div class="empty" id="empty" hidden>
+          <h3>Nema rezultata</h3>
+          <p class="muted">Probajte drugi filter ili nam recite šta tražite, a mi javljamo kad se pojavi.</p>
+          <a class="btn mt-s" href="kontakt.html">Javite mi <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section on-dark">
+      <div class="wrap cta-block">
+        <span class="eyebrow">Niste našli pravi?</span>
+        <h2 class="huge mt-m">Recite nam<br><span class="outline">šta tražite.</span></h2>
+        <p class="lead muted mt-m">Mnogi biznisi se prodaju pre nego što dođu do sajta. Ostavite budžet i delatnost, javljamo se prvi.</p>
+        <div class="cta-row mt-m">
+          <a class="btn btn--lg btn--white" href="kontakt.html">Pošalji upit <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

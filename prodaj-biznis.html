@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prodaj biznis — besplatna procena | Prodaj biznis</title>
+  <meta name="description" content="Ostavite podatke o svom biznisu i dobijte besplatnu procenu. Diskretno, bez obaveza.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="prodaj">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">Besplatna procena · bez obaveza</span>
+        <h1>Prodaj<br><span class="outline">biznis</span></h1>
+        <div class="page-hero__row">
+          <p class="lead">Popunite formu za pet minuta. Podatke vidi samo naš tim, a javljamo se u roku od 48 sati sa prvim utiskom i sledećim koracima.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap form-layout">
+        <aside class="form-aside">
+          <h2 class="h2">Šta se<br>dešava<br><span class="outline">posle?</span></h2>
+          <div class="steps mt-l" style="grid-template-columns:1fr;border-top:2px solid var(--black)">
+            <div class="step" style="padding:20px 0;border-right:0;border-bottom:1px solid var(--line)">
+              <h3>01 — Poziv</h3>
+              <p class="muted" style="margin:8px 0 0">Kratak razgovor da razumemo biznis i šta želite.</p>
+            </div>
+            <div class="step" style="padding:20px 0;border-right:0;border-bottom:1px solid var(--line)">
+              <h3>02 — Procena</h3>
+              <p class="muted" style="margin:8px 0 0">Realna cena na osnovu brojki, ne želja.</p>
+            </div>
+            <div class="step" style="padding:20px 0;border-right:0;border-bottom:1px solid var(--line)">
+              <h3>03 — Anonimni oglas</h3>
+              <p class="muted" style="margin:8px 0 0">Kupci vide biznis, ne i vaše ime.</p>
+            </div>
+          </div>
+          <p class="muted mt-m" style="font-size:15px">Radije biste da pričamo odmah? Pozovite <a data-site="phone" href="#" style="text-decoration:underline"></a> ili pišite na Instagramu <a data-site="instagram" href="#" target="_blank" rel="noopener" style="text-decoration:underline"></a>.</p>
+        </aside>
+
+        <div>
+          <form data-form data-subject="Prodaja biznisa — nova prijava" data-success="sell-success" novalidate>
+            <div class="form-step">
+              <div class="form-step__head"><span class="n">01</span><h3>Vaši podaci</h3></div>
+              <div class="fields">
+                <label class="field"><span>Ime i prezime</span><input name="ime" data-label="Ime i prezime" required autocomplete="name"></label>
+                <label class="field"><span>Telefon</span><input name="telefon" data-label="Telefon" type="tel" required autocomplete="tel"></label>
+                <label class="field field--full"><span>Email</span><input name="email" data-label="Email" type="email" required autocomplete="email"></label>
+              </div>
+            </div>
+
+            <div class="form-step">
+              <div class="form-step__head"><span class="n">02</span><h3>O biznisu</h3></div>
+              <div class="fields">
+                <label class="field"><span>Delatnost</span>
+                  <select name="delatnost" data-label="Delatnost" required>
+                    <option value="">Izaberite</option>
+                    <option>Ugostiteljstvo</option>
+                    <option>Trgovina</option>
+                    <option>Usluge</option>
+                    <option>Proizvodnja</option>
+                    <option>IT &amp; Online</option>
+                    <option>Lepota &amp; Zdravlje</option>
+                    <option>Auto</option>
+                    <option>Turizam</option>
+                    <option>Drugo</option>
+                  </select>
+                </label>
+                <label class="field"><span>Grad</span><input name="grad" data-label="Grad" required></label>
+                <label class="field"><span>Naziv biznisa <i>(opciono)</i></span><input name="naziv" data-label="Naziv biznisa"></label>
+                <label class="field"><span>Godina osnivanja</span><input name="osnovan" data-label="Godina osnivanja" inputmode="numeric" placeholder="npr. 2015"></label>
+                <label class="field"><span>Broj zaposlenih</span><input name="zaposleni" data-label="Broj zaposlenih" inputmode="numeric"></label>
+                <label class="field"><span>Pravna forma</span>
+                  <select name="forma" data-label="Pravna forma">
+                    <option value="">Izaberite</option>
+                    <option>Preduzetnik</option>
+                    <option>DOO</option>
+                    <option>Drugo</option>
+                  </select>
+                </label>
+                <label class="field field--full"><span>Ukratko opišite biznis</span><textarea name="opis" data-label="Opis" placeholder="Čime se bavite, ko su vam kupci, šta vas izdvaja…" required></textarea></label>
+              </div>
+            </div>
+
+            <div class="form-step">
+              <div class="form-step__head"><span class="n">03</span><h3>Brojke</h3></div>
+              <div class="fields">
+                <label class="field"><span>Godišnji promet (€)</span><input name="promet" data-label="Godišnji promet" inputmode="numeric" placeholder="okvirno"></label>
+                <label class="field"><span>Godišnja neto dobit (€)</span><input name="dobit" data-label="Neto dobit" inputmode="numeric" placeholder="okvirno"></label>
+                <label class="field"><span>Očekivana cena (€)</span><input name="cena" data-label="Očekivana cena" inputmode="numeric" placeholder="ako znate"></label>
+                <label class="field"><span>Prostor</span>
+                  <select name="prostor" data-label="Prostor">
+                    <option value="">Izaberite</option>
+                    <option>U zakupu</option>
+                    <option>U vlasništvu</option>
+                    <option>Bez prostora (online)</option>
+                  </select>
+                </label>
+              </div>
+              <div class="field">
+                <span>Šta ulazi u prodaju</span>
+                <div class="checks">
+                  <label class="check"><input type="checkbox" name="ulazi" data-label="Ulazi u prodaju" value="Oprema"><span>Oprema</span></label>
+                  <label class="check"><input type="checkbox" name="ulazi" value="Zalihe"><span>Zalihe</span></label>
+                  <label class="check"><input type="checkbox" name="ulazi" value="Nekretnina"><span>Nekretnina</span></label>
+                  <label class="check"><input type="checkbox" name="ulazi" value="Vozila"><span>Vozila</span></label>
+                  <label class="check"><input type="checkbox" name="ulazi" value="Brend i društvene mreže"><span>Brend i mreže</span></label>
+                  <label class="check"><input type="checkbox" name="ulazi" value="Baza klijenata"><span>Baza klijenata</span></label>
+                  <label class="check"><input type="checkbox" name="ulazi" value="Tim"><span>Tim</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-step">
+              <div class="form-step__head"><span class="n">04</span><h3>Za kraj</h3></div>
+              <div class="fields">
+                <label class="field"><span>Razlog prodaje</span>
+                  <select name="razlog" data-label="Razlog prodaje">
+                    <option value="">Izaberite</option>
+                    <option>Novi projekat</option>
+                    <option>Penzija</option>
+                    <option>Selidba</option>
+                    <option>Nedostatak vremena</option>
+                    <option>Lični razlozi</option>
+                    <option>Drugo</option>
+                  </select>
+                </label>
+                <label class="field"><span>Kada želite da prodate?</span>
+                  <select name="rok" data-label="Rok">
+                    <option value="">Izaberite</option>
+                    <option>Što pre</option>
+                    <option>U naredna 3 meseca</option>
+                    <option>U narednih 6–12 meseci</option>
+                    <option>Samo istražujem</option>
+                  </select>
+                </label>
+              </div>
+              <label class="consent"><input type="checkbox" required> <span>Saglasan/na sam da Prodaj biznis koristi ove podatke samo radi kontakta i procene. Podaci se ne dele sa trećim licima.</span></label>
+              <button class="btn btn--lg" type="submit" style="width:100%">Pošalji na procenu <span class="arrow">→</span></button>
+            </div>
+          </form>
+
+          <div class="form-success" id="sell-success" role="status">
+            <h3>Hvala, primili smo.</h3>
+            <p>Javljamo se u roku od 48 sati. U međuvremenu pogledajte šta trenutno prodajemo.</p>
+            <a class="btn btn--white mt-s" href="kupi-biznis.html">Biznisi na prodaju <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
