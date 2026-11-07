@@ -1059,14 +1059,71 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
   }
 }
 
-/* Ikonice iznad dlana: smenjuju se gore-dole kao reč */
-.hero-scene .hi {
-  transform: translateY(220px);
-  opacity: 0;
-  transition: transform .8s var(--ease), opacity .5s var(--ease);
+/* ---------- Hero scena: ikonica se baci u dlan, ruka je uhvati ---------- */
+.hero-scene .hi,
+.hero-scene .hand-g {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
 }
-.hero-scene .hi.is-active { transform: none; opacity: 1; }
-.hero-scene .hi.is-leaving { transform: translateY(-160px); opacity: 0; }
+.hero-scene .hand-g { transform-origin: 0% 50%; }
+.hero-scene .hi { opacity: 0; }
+
+/* ulazak: pad sa gravitacijom, sabijanje pri udaru, odskok, pa lagano lebdenje */
+.hero-scene .hi.is-active {
+  animation:
+    hi-drop 1s .32s both,
+    hi-float 3.2s 1.32s ease-in-out infinite;
+}
+.hero-scene .hi--coin.is-active {
+  animation:
+    hi-drop-coin 1s .32s both,
+    hi-float 3.2s 1.32s ease-in-out infinite;
+}
+/* izlazak: ikonica se podigne i nestane */
+.hero-scene .hi.is-leaving { animation: hi-out .4s cubic-bezier(.55,0,1,.45) both; }
+
+/* ruka "uhvati" ikonicu u trenutku pada */
+.hero-scene .hand-g.is-catch { animation: hand-catch .7s .8s both; }
+
+@keyframes hi-drop {
+  0%   { opacity: 0; transform: translateY(-170px) rotate(-8deg); animation-timing-function: cubic-bezier(.55,0,.9,.45); }
+  12%  { opacity: 1; }
+  50%  { transform: translateY(0) rotate(0) scale(1.06, .9); animation-timing-function: cubic-bezier(.2,.7,.3,1); }
+  66%  { transform: translateY(-22px) scale(.97, 1.04); animation-timing-function: cubic-bezier(.6,0,.9,.5); }
+  80%  { transform: translateY(0) scale(1.02, .97); animation-timing-function: ease-out; }
+  90%  { transform: translateY(-4px) scale(1); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes hi-drop-coin {
+  0%   { opacity: 0; transform: translateY(-170px) scaleX(.1); animation-timing-function: cubic-bezier(.55,0,.9,.45); }
+  12%  { opacity: 1; transform: translateY(-150px) scaleX(1); }
+  24%  { transform: translateY(-110px) scaleX(-1); }
+  36%  { transform: translateY(-60px) scaleX(1); }
+  50%  { transform: translateY(0) scale(1.06, .9); animation-timing-function: cubic-bezier(.2,.7,.3,1); }
+  66%  { transform: translateY(-22px) scale(.97, 1.04); animation-timing-function: cubic-bezier(.6,0,.9,.5); }
+  80%  { transform: translateY(0) scale(1.02, .97); animation-timing-function: ease-out; }
+  90%  { transform: translateY(-4px) scale(1); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes hi-out {
+  0%   { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translate(110px, -70px) scale(.8) rotate(20deg); }
+}
+@keyframes hi-float {
+  0%, 100% { transform: none; }
+  50%      { transform: translateY(-7px); }
+}
+@keyframes hand-catch {
+  0%   { transform: none; }
+  30%  { transform: translateY(9px) rotate(1.2deg); animation-timing-function: cubic-bezier(.2,.7,.3,1); }
+  65%  { transform: translateY(-3px) rotate(-.4deg); }
+  100% { transform: none; }
+}
+
+/* na telefonu bez animacije */
+@media (max-width: 760px) {
+  .hero-icon { display: none; }
+}
 
 /* ---------- Hero: paragraf levo, dugmad desno, centrirano ---------- */
 .hero-bottom--split {

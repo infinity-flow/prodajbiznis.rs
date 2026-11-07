@@ -107,12 +107,19 @@
     var scene = document.querySelector("[data-scene]");
     var icons = scene ? [].slice.call(scene.querySelectorAll(".hi")) : [];
     var i = 0;
-    if (icons[0]) setTimeout(function () { icons[0].classList.add("is-active"); }, 250);
+    var hand = scene ? scene.querySelector(".hand-g") : null;
+    function catchIt() {
+      if (!hand) return;
+      hand.classList.remove("is-catch");
+      void hand.getBoundingClientRect();
+      hand.classList.add("is-catch");
+    }
+    if (icons[0]) setTimeout(function () { icons[0].classList.add("is-active"); catchIt(); }, 250);
     setInterval(function () {
       if (document.hidden) return;
       var n = (i + 1) % words.length;
       stepSet(words, i, n);
-      if (icons.length === words.length) stepSet(icons, i, n);
+      if (icons.length === words.length) { stepSet(icons, i, n); catchIt(); }
       i = n;
     }, 3000);
   });
