@@ -240,7 +240,7 @@
       reelsTrack.innerHTML = REELS.map(function (url, i) {
         var m = String(url).match(/instagram\.com\/(?:reel|p|tv)\/([A-Za-z0-9_-]+)/);
         if (!m) return "";
-        return '<div class="reel"><iframe src="https://www.instagram.com/reel/' + m[1] + '/embed" loading="lazy" title="Instagram rils ' + (i + 1) + '" allowfullscreen></iframe></div>';
+        return '<div class="reel reel--embed"><iframe src="https://www.instagram.com/reel/' + m[1] + '/embed/" loading="lazy" scrolling="no" title="Instagram rils ' + (i + 1) + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
       }).join("");
     } else {
       var titles = ["Kako se procenjuje vrednost biznisa", "5 grešaka pre prodaje", "Šta kupac prvo pita", "Kako izgleda primopredaja", "Kupiti ili otvoriti novo?", "Zašto diskrecija znači sve"];
@@ -264,8 +264,9 @@
       if (dir > 0 && atEnd) reelsTrack.scrollTo({ left: 0, behavior: "smooth" });
       else reelsTrack.scrollBy({ left: dir * step(), behavior: "smooth" });
     }
-    if (prev) prev.addEventListener("click", function () { go(-1); });
-    if (next) next.addEventListener("click", function () { go(1); });
+    var userDriven = false;
+    if (prev) prev.addEventListener("click", function () { userDriven = true; go(-1); });
+    if (next) next.addEventListener("click", function () { userDriven = true; go(1); });
 
     // Lagano automatsko pomeranje; pauza kad je kursor iznad ili kartica nije vidljiva
     var paused = false;
@@ -273,7 +274,7 @@
     reelsTrack.addEventListener("mouseenter", function () { paused = true; });
     reelsTrack.addEventListener("mouseleave", function () { paused = false; });
     reelsTrack.addEventListener("touchstart", function () { paused = true; }, { passive: true });
-    if (!reduce) setInterval(function () { if (!paused && !document.hidden) go(1); }, 4200);
+    if (!reduce) setInterval(function () { if (!paused && !userDriven && !document.hidden) go(1); }, 5000);
   }
 
   /* ---------- Forme ---------- */

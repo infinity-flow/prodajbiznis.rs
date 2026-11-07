@@ -887,3 +887,10 @@ h2, .h2, .statement { line-height: .92; }
   .hero h1 { font-size: 24vw; }
   .hero-top .eyebrow:last-child { display: none; }
 }
+
+/* Instagram embed: zaglavlje profila + video 9:16 + traka ispod */
+.reel--embed {
+  aspect-ratio: auto;
+  height: calc(clamp(250px, 24vw, 340px) * 16 / 9 + 120px);
+  background: var(--white);
+}

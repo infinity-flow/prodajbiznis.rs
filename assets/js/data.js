@@ -21,7 +21,11 @@ window.SITE = {
    Dok je lista prazna, prikazuju se placeholder kartice.
    ---------------------------------------------------------- */
 window.REELS = [
-  // "https://www.instagram.com/reel/XXXXXXXXXXX/",
+  "https://www.instagram.com/reel/DfcaDcsN1Z3/",
+  "https://www.instagram.com/reel/DfWfwj8NYM-/",
+  "https://www.instagram.com/reel/DfSoqQ0tRWT/",
+  "https://www.instagram.com/reel/DfHbKSpNeoK/",
+  "https://www.instagram.com/reel/DfFIGD2tqRW/"
 ];
 
 /* ----------------------------------------------------------
