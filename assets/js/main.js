@@ -1,7 +1,6 @@
 (function () {
   "use strict";
 
-  var SCRIPT_SRC = document.currentScript ? document.currentScript.src : "assets/js/main.js";
 
   var S = window.SITE || {};
   var page = document.body.getAttribute("data-page") || "";
@@ -115,37 +114,51 @@
     nxt.classList.add("is-active");
   }
 
+  /* Ikonica se iscrta linijom, stoji, pa se "odcrta" unazad — u ritmu reči */
+  var PHASE_MS = 4000;
+  var draw = document.querySelector("[data-draw]");
+  var drawIcons = draw ? [].slice.call(draw.querySelectorAll(".draw-icon")) : [];
+  var canAnimate = drawIcons.length && typeof Element.prototype.animate === "function";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function drawPhase(idx) {
+    if (!drawIcons.length) return;
+    drawIcons.forEach(function (g, k) { g.classList.toggle("is-on", k === idx); });
+    var paths = [].slice.call(drawIcons[idx].querySelectorAll("path"));
+    if (!canAnimate || reduceMotion) {
+      paths.forEach(function (p) { p.style.strokeDashoffset = "0"; });
+      return;
+    }
+    var n = paths.length;
+    var stagger = Math.min(70, 900 / n);   // ukupno ~0.9s razmaka
+    var drawDur = 1100, eraseDur = 700;
+    var eraseStart = PHASE_MS - eraseDur - 120 - stagger * 0.5 * (n - 1);
+    paths.forEach(function (p, j) {
+      p.getAnimations().forEach(function (a) { a.cancel(); });
+      // iscrtavanje redom
+      p.animate([{ strokeDashoffset: 1.02 }, { strokeDashoffset: 0 }], {
+        duration: drawDur, delay: 150 + j * stagger, easing: "cubic-bezier(.65,0,.35,1)", fill: "both"
+      });
+      // nazad, obrnutim redom
+      p.animate([{ strokeDashoffset: 0 }, { strokeDashoffset: 1.02 }], {
+        duration: eraseDur, delay: eraseStart + (n - 1 - j) * stagger * 0.5, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards", composite: "replace"
+      });
+    });
+  }
+
   document.querySelectorAll("[data-rotator]").forEach(function (rot) {
     var words = [].slice.call(rot.querySelectorAll(".rw"));
     if (words.length < 2) return;
-    var scene = document.querySelector("[data-scene]");
-    var icons = scene ? [].slice.call(scene.querySelectorAll(".hi")) : [];
     var i = 0;
-    var hand = scene ? scene.querySelector(".hand-g") : null;
-    function catchIt() {
-      if (!hand) return;
-      hand.classList.remove("is-catch");
-      void hand.getBoundingClientRect();
-      hand.classList.add("is-catch");
-    }
-    if (icons[0]) setTimeout(function () { icons[0].classList.add("is-active"); catchIt(); }, 250);
+    drawPhase(0);
     setInterval(function () {
       if (document.hidden) return;
       var n = (i + 1) % words.length;
       stepSet(words, i, n);
-      if (icons.length === words.length) { stepSet(icons, i, n); catchIt(); }
-      window.dispatchEvent(new CustomEvent("hero:phase", { detail: { index: n } }));
+      drawPhase(n);
       i = n;
-    }, 3000);
+    }, PHASE_MS);
   });
-
-  /* ---------- Hero 3D (samo desktop, učitava se naknadno) ---------- */
-
-  if (document.querySelector("[data-scene]") && window.matchMedia("(min-width: 901px)").matches) {
-    try {
-      import(new URL("hero3d.js", SCRIPT_SRC).href).catch(function () {});
-    } catch (e) {}
-  }
 
   /* ---------- Reveal on scroll ---------- */
 

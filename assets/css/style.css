@@ -1218,3 +1218,23 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 
 /* 3D scena: manja, uz desnu marginu */
 .hero-icon { flex: 0 1 460px; margin-left: auto; }
+
+/* ---------- Hero: ikonica se iscrtava linijom ---------- */
+.draw-scene {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+}
+.draw-scene path {
+  stroke-width: 2.6;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.02;
+}
+.draw-icon { opacity: 0; }
+.draw-icon.is-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .draw-icon.is-on path { stroke-dashoffset: 0; }
+}
