@@ -1232,24 +1232,30 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 .draw-scene .fill { fill: #efefec; stroke: none; }
 .draw-icon { visibility: hidden; }
 
-/* ---------- Hero: statična slika ruku (Three.js render) ---------- */
-.hero-hands picture {
+/* ---------- Hero: statična slika ruku (Three.js render), od navigacije do trake, iza sadržaja ---------- */
+.hero { position: relative; overflow: hidden; }
+.hero .hero-top,
+.hero .hero-head > h1,
+.hero .hero-bottom { position: relative; z-index: 1; }
+.hero-icon.hero-hands {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: min(62%, 1180px);
+  height: auto;
+  margin: 0;
+  flex: none;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-hands picture { position: absolute; inset: 0; }
+.hero-hands img {
   position: absolute;
   inset: 0;
-}
-.hero-hands img {
-  position: absolute;
-  left: 0;
-  top: -16%;
   width: 100%;
-  height: 120%;
-}
-.hero-hands img {
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   object-position: right center;
-  /* podlaktice se blago gube na ivicama */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 2%, #000 22%, #000 72%, transparent 96%);
-          mask-image: linear-gradient(to bottom, transparent 2%, #000 22%, #000 72%, transparent 96%);
+  mix-blend-mode: multiply; /* bela pozadina slike se stapa sa stranicom */
 }
-
-.hero-actions { position: relative; z-index: 1; }
