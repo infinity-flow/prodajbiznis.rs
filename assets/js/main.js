@@ -86,25 +86,35 @@
     if (header) header.addEventListener("focusin", function () { document.body.classList.remove("nav-hidden"); });
   })();
 
-  /* ---------- Hero rotator ---------- */
+  /* ---------- Hero rotator (reč + ikonica, sinhronizovano) ---------- */
+
+  function stepSet(items, from, to) {
+    var cur = items[from], nxt = items[to];
+    nxt.style.transition = "none";
+    [].forEach.call(nxt.querySelectorAll("*"), function (n) { n.style.transition = "none"; });
+    nxt.classList.remove("is-leaving");
+    void nxt.getBoundingClientRect();
+    nxt.style.transition = "";
+    [].forEach.call(nxt.querySelectorAll("*"), function (n) { n.style.transition = ""; });
+    cur.classList.remove("is-active");
+    cur.classList.add("is-leaving");
+    nxt.classList.add("is-active");
+  }
 
   document.querySelectorAll("[data-rotator]").forEach(function (rot) {
     var words = [].slice.call(rot.querySelectorAll(".rw"));
     if (words.length < 2) return;
+    var iconWrap = document.querySelector("[data-rotator-icons]");
+    var icons = iconWrap ? [].slice.call(iconWrap.querySelectorAll(".hi")) : [];
     var i = 0;
+    // prva ikonica se iscrta posle učitavanja
+    if (icons[0]) setTimeout(function () { icons[0].classList.add("is-active"); }, 350);
     setInterval(function () {
       if (document.hidden) return;
-      var cur = words[i];
-      i = (i + 1) % words.length;
-      var nxt = words[i];
-      // pripremi sledeću reč ispod, bez animacije
-      nxt.style.transition = "none";
-      nxt.classList.remove("is-leaving");
-      void nxt.offsetHeight;
-      nxt.style.transition = "";
-      cur.classList.remove("is-active");
-      cur.classList.add("is-leaving");
-      nxt.classList.add("is-active");
+      var n = (i + 1) % words.length;
+      stepSet(words, i, n);
+      if (icons.length === words.length) stepSet(icons, i, n);
+      i = n;
     }, 3000);
   });
 

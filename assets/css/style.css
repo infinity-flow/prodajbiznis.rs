@@ -1023,7 +1023,72 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 
 /* ---------- Hero: poravnanje i ritam (eyebrow 12px / h1 / p 16px) ---------- */
 .hero-top { margin-bottom: 0; }
-.hero h1 { margin-left: -0.044em; margin-top: calc(7.76px - 0.0547em); margin-bottom: calc(16px - 0.0573em); }
-.hero-bottom--stack .lead { margin-top: -0.387em; margin-bottom: 0; }
+.hero h1 { margin-left: -0.044em; margin-top: calc(7.76px - 0.0547em); margin-bottom: calc(24px - 0.0573em); }
+.hero-bottom .lead { margin-top: -0.387em; margin-bottom: 0; }
 @media (min-width: 1700px) { .hero h1 { margin-top: calc(9.76px - 0.0547em); } }
-.hero-bottom.hero-bottom--stack { padding-top: 0; }
+.hero-bottom.hero-bottom--stack, .hero-bottom.hero-bottom--split { padding-top: 0; }
+
+/* ---------- Hero: naslov + animirana ikonica ---------- */
+.hero-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.hero-icon {
+  --size: calc(clamp(84px, 20vw, 340px) * .82);
+  position: relative;
+  flex: none;
+  width: var(--size);
+  height: var(--size);
+  /* u ravni sa redom BIZNIS (poslednji red naslova) */
+  margin-bottom: calc(24px - 0.0573 * clamp(84px, 20vw, 340px));
+  color: var(--black);
+}
+.hero-icon .hi {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  stroke-width: .9;
+  transition: opacity .6s var(--ease), transform .8s var(--ease);
+}
+.hero-icon .hi * {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.1s var(--ease);
+}
+.hero-icon .hi.is-active * { stroke-dashoffset: 0; }
+.hero-icon .hi.is-active circle { transition-delay: .25s; }
+.hero-icon .hi.is-active path + path { transition-delay: .4s; }
+.hero-icon .hi.is-leaving { opacity: 0; transform: translateY(-14%) rotate(-6deg); }
+.hero-icon .hi.is-leaving * { stroke-dashoffset: 0; }
+
+@media (max-width: 1200px) { .hero-icon .hi { stroke-width: 1.2; } }
+@media (max-width: 760px) { .hero-icon .hi { stroke-width: 1.6; } }
+@media (max-width: 600px) {
+  .hero-head { position: relative; }
+  .hero-icon {
+    --size: 21vw;
+    position: absolute;
+    right: 0;
+    bottom: calc(24px - 0.0573 * 27vw);
+    margin: 0;
+  }
+  .hero-icon .hi { stroke-width: 2.4; }
+}
+
+/* ---------- Hero: paragraf levo, dugmad desno, centrirano ---------- */
+.hero-bottom--split {
+  display: grid;
+  grid-template-columns: minmax(0, 620px) auto;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+.hero-bottom--split .hero-actions { justify-content: flex-end; }
+@media (max-width: 860px) {
+  .hero-bottom--split { grid-template-columns: 1fr; gap: 28px; }
+  .hero-bottom--split .hero-actions { justify-content: flex-start; }
+}
+.btn .btn-icon { flex: none; }
