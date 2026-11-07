@@ -61,6 +61,28 @@
       "</div>";
   }
 
+  /* ---------- Hero rotator ---------- */
+
+  document.querySelectorAll("[data-rotator]").forEach(function (rot) {
+    var words = [].slice.call(rot.querySelectorAll(".rw"));
+    if (words.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      if (document.hidden) return;
+      var cur = words[i];
+      i = (i + 1) % words.length;
+      var nxt = words[i];
+      // pripremi sledeću reč ispod, bez animacije
+      nxt.style.transition = "none";
+      nxt.classList.remove("is-leaving");
+      void nxt.offsetHeight;
+      nxt.style.transition = "";
+      cur.classList.remove("is-active");
+      cur.classList.add("is-leaving");
+      nxt.classList.add("is-active");
+    }, 3000);
+  });
+
   /* ---------- Reveal on scroll ---------- */
 
   var revealEls = document.querySelectorAll(".reveal");

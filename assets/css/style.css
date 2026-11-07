@@ -988,3 +988,15 @@ h2, .h2, .statement { line-height: .92; }
 main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0; margin-inline: 0; }
 .mega { line-height: .98; }
 .btn:focus-visible { outline-offset: 4px; }
+
+/* ---------- Hero: PRODAJ / KUPI se smenjuju ---------- */
+.hero h1 { font-size: clamp(84px, 20vw, 340px); }
+.hero h1 .line > .rotator { display: inline-grid; }
+.rw {
+  grid-area: 1 / 1;
+  transform: translateY(105%);
+  transition: transform .8s var(--ease);
+}
+.rw.is-active { transform: none; }
+.rw.is-leaving { transform: translateY(-105%); }
+@media (max-width: 600px) { .hero h1 { font-size: 27vw; } }
