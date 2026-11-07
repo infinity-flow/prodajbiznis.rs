@@ -86,6 +86,18 @@
     if (header) header.addEventListener("focusin", function () { document.body.classList.remove("nav-hidden"); });
   })();
 
+  /* ---------- Proces: pokreni liniju kad je sekcija na ekranu ---------- */
+
+  document.querySelectorAll("[data-progress]").forEach(function (el) {
+    if (!("IntersectionObserver" in window)) { el.classList.add("is-run"); return; }
+    var o = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { el.classList.add("is-run"); o.disconnect(); }
+      });
+    }, { threshold: 0.45 });
+    o.observe(el);
+  });
+
   /* ---------- Hero rotator (reč + ikonica, sinhronizovano) ---------- */
 
   function stepSet(items, from, to) {

@@ -1139,3 +1139,30 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
   .hero-bottom--split .hero-actions { justify-content: flex-start; }
 }
 .btn .btn-icon { flex: none; }
+
+/* ---------- Proces: linija se iscrtava, stavke se pale redom ---------- */
+.steps--progress {
+  position: relative;
+  border-top-color: rgba(255, 255, 255, .12);
+}
+.steps--progress::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 2px;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.steps--progress .step {
+  opacity: .1;
+  transition: opacity .6s var(--ease);
+}
+.steps--progress.is-run::before { transform: scaleX(1); transition: transform 3.2s linear; }
+.steps--progress.is-run .step { opacity: 1; }
+.steps--progress.is-run .step:nth-child(1) { transition-delay: .1s; }
+.steps--progress.is-run .step:nth-child(2) { transition-delay: .8s; }
+.steps--progress.is-run .step:nth-child(3) { transition-delay: 1.6s; }
+.steps--progress.is-run .step:nth-child(4) { transition-delay: 2.4s; }
