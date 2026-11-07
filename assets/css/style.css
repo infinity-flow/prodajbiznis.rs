@@ -1010,3 +1010,13 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 .nav-hidden .filters { top: 0; }
 .nav-hidden .form-aside { top: 36px; }
 .form-aside { transition: top .35s var(--ease); }
+
+/* ---------- Hero: dugmad ispod paragrafa ---------- */
+.hero-bottom--stack {
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.hero-bottom--stack .hero-actions { justify-content: flex-start; }
+/* Crna sekcija odmah posle trake: malo vazduha */
+.ticker + .section.on-dark { margin-top: clamp(8px, 1.2vw, 16px); }

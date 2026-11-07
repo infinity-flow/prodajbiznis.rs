@@ -26,7 +26,7 @@
           <span class="line" aria-hidden="true"><span class="rotator" data-rotator><span class="rw is-active">Prodaj</span><span class="rw">Kupi</span></span></span>
           <span class="line" aria-hidden="true"><span class="outline">Biznis</span></span>
         </h1>
-        <div class="hero-bottom">
+        <div class="hero-bottom hero-bottom--stack">
           <p class="lead">Prodajete firmu ili tražite posao koji već radi? Vodimo ceo proces od procene do primopredaje, diskretno i bez gubljenja vremena na pogrešne kupce.</p>
           <div class="hero-actions">
             <a class="btn btn--lg" href="prodaj-biznis.html">Prodaj biznis <span class="arrow">→</span></a>
@@ -42,53 +42,6 @@
         <span>Ugostiteljstvo</span><span>Online biznisi</span><span>Proizvodnja</span><span>Trgovina</span><span>Turizam</span><span>Usluge</span><span>Lepota &amp; zdravlje</span><span>Auto</span>
       </div>
     </div>
-
-    <!-- DVE STRANE -->
-    <section class="split" aria-label="Za prodavce i kupce">
-      <div class="split__item">
-        <span class="num">01 — Za vlasnike</span>
-        <div>
-          <h2>Prodaješ?</h2>
-          <ul>
-            <li>Realna procena vrednosti biznisa</li>
-            <li>Oglas bez otkrivanja imena firme</li>
-            <li>Samo provereni, ozbiljni kupci</li>
-            <li>Pregovori i primopredaja uz našu podršku</li>
-          </ul>
-        </div>
-        <div><a class="btn" href="prodaj-biznis.html">Pošalji podatke o biznisu <span class="arrow">→</span></a></div>
-      </div>
-      <div class="split__item on-dark">
-        <span class="num">02 — Za kupce</span>
-        <div>
-          <h2>Kupuješ?</h2>
-          <ul>
-            <li>Biznisi koji već imaju promet i klijente</li>
-            <li>Provereni podaci o prihodima i troškovima</li>
-            <li>Pomoć oko finansiranja i pravne strane</li>
-            <li>Uvod u posao od strane bivšeg vlasnika</li>
-          </ul>
-        </div>
-        <div><a class="btn btn--white" href="kupi-biznis.html">Pogledaj ponudu <span class="arrow">→</span></a></div>
-      </div>
-    </section>
-
-    <!-- AKTUELNO NA PRODAJU -->
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <div>
-            <span class="eyebrow">Trenutno u ponudi · <span data-listing-count></span> aktivnih</span>
-            <h2>Na prodaju<br><span class="outline">sada</span></h2>
-          </div>
-          <a class="link-underline" href="kupi-biznis.html">Svi biznisi <span>→</span></a>
-        </div>
-        <div class="listings reveal" id="featured-listings"></div>
-        <div class="mt-l" style="display:flex;justify-content:center">
-          <a class="btn btn--lg" href="kupi-biznis.html">Pogledaj svih 20 biznisa <span class="arrow">→</span></a>
-        </div>
-      </div>
-    </section>
 
     <!-- KAKO RADIMO -->
     <section class="section on-dark">
@@ -125,30 +78,25 @@
       </div>
     </section>
 
-    <!-- INSTAGRAM RILSOVI -->
-    <section class="section on-paper">
+    <!-- AKTUELNO NA PRODAJU -->
+    <section class="section">
       <div class="wrap">
         <div class="section-head reveal">
           <div>
-            <span class="eyebrow">Instagram · <a href="https://www.instagram.com/prodajbiznis.rs/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">@prodajbiznis.rs</a></span>
-            <h2>Iz prve<br><span class="outline">ruke</span></h2>
+            <span class="eyebrow">Trenutno u ponudi · <span data-listing-count></span> aktivnih</span>
+            <h2>Na prodaju<br><span class="outline">sada</span></h2>
           </div>
-          <div class="reels__nav">
-            <button class="icon-btn" id="reels-prev" aria-label="Prethodni">←</button>
-            <button class="icon-btn" id="reels-next" aria-label="Sledeći">→</button>
-          </div>
+          <a class="link-underline" href="kupi-biznis.html">Svi biznisi <span>→</span></a>
         </div>
-      </div>
-      <div class="reels reveal">
-        <div class="reels__track" id="reels-track"></div>
-      </div>
-      <div class="wrap mt-m">
-        <a class="link-underline" href="https://www.instagram.com/prodajbiznis.rs/" target="_blank" rel="noopener">Zaprati na Instagramu <span>→</span></a>
+        <div class="listings reveal" id="featured-listings"></div>
+        <div class="mt-l" style="display:flex;justify-content:center">
+          <a class="btn btn--lg" href="kupi-biznis.html">Pogledaj svih 20 biznisa <span class="arrow">→</span></a>
+        </div>
       </div>
     </section>
 
     <!-- STAV + STUBOVI -->
-    <section class="section">
+    <section class="section on-paper">
       <div class="wrap">
         <p class="eyebrow reveal">Zašto mi</p>
         <h2 class="statement mt-m reveal">Godine rada ne prodaju se preko <span class="outline">oglasa</span> na buvljaku.</h2>
@@ -166,6 +114,28 @@
             <p class="muted">Ostajemo uz vas kroz pregovore, papirologiju i prve dane novog vlasnika.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- INSTAGRAM RILSOVI -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Instagram · <a href="https://www.instagram.com/prodajbiznis.rs/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">@prodajbiznis.rs</a></span>
+            <h2>Iz prve<br><span class="outline">ruke</span></h2>
+          </div>
+          <div class="reels__nav">
+            <button class="icon-btn" id="reels-prev" aria-label="Prethodni">←</button>
+            <button class="icon-btn" id="reels-next" aria-label="Sledeći">→</button>
+          </div>
+        </div>
+      </div>
+      <div class="reels reveal">
+        <div class="reels__track" id="reels-track"></div>
+      </div>
+      <div class="wrap mt-m">
+        <a class="link-underline" href="https://www.instagram.com/prodajbiznis.rs/" target="_blank" rel="noopener">Zaprati na Instagramu <span>→</span></a>
       </div>
     </section>
 
