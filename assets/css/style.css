@@ -1215,3 +1215,6 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
   .hero h1 { margin-top: calc(8.76px - 0.0547em); }
   .hero-icon { margin-top: calc(8.76px - 0.0547 * var(--h1fs)); }
 }
+
+/* 3D scena: manja, uz desnu marginu */
+.hero-icon { flex: 0 1 460px; margin-left: auto; }
