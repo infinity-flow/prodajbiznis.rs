@@ -1020,3 +1020,10 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 .hero-bottom--stack .hero-actions { justify-content: flex-start; }
 /* Crna sekcija odmah posle trake: malo vazduha */
 .ticker + .section.on-dark { margin-top: clamp(8px, 1.2vw, 16px); }
+
+/* ---------- Hero: poravnanje i ritam (eyebrow 12px / h1 / p 16px) ---------- */
+.hero-top { margin-bottom: 0; }
+.hero h1 { margin-left: -0.044em; margin-top: calc(7.76px - 0.0547em); margin-bottom: calc(16px - 0.0573em); }
+.hero-bottom--stack .lead { margin-top: -0.387em; margin-bottom: 0; }
+@media (min-width: 1700px) { .hero h1 { margin-top: calc(9.76px - 0.0547em); } }
+.hero-bottom.hero-bottom--stack { padding-top: 0; }
