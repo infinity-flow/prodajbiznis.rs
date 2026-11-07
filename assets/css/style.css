@@ -1045,37 +1045,69 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
   margin-bottom: calc(24px - 0.0573 * clamp(84px, 20vw, 340px));
   color: var(--black);
 }
-.hero-icon .hi {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  stroke-width: .9;
-  transition: opacity .6s var(--ease), transform .8s var(--ease);
-}
-.hero-icon .hi * {
-  stroke-dasharray: 1 2;
-  stroke-dashoffset: 1;
-  transition: stroke-dashoffset 1.1s var(--ease);
-}
-.hero-icon .hi.is-active * { stroke-dashoffset: 0; }
-.hero-icon .hi.is-active circle { transition-delay: .25s; }
-.hero-icon .hi.is-active path + path { transition-delay: .4s; }
-.hero-icon .hi.is-leaving { opacity: 0; transform: translateY(-14%) rotate(-6deg); }
-.hero-icon .hi.is-leaving * { stroke-dashoffset: 0; }
-
-@media (max-width: 1200px) { .hero-icon .hi { stroke-width: 1.2; } }
-@media (max-width: 760px) { .hero-icon .hi { stroke-width: 1.6; } }
+.hero-scene { width: 100%; height: 100%; overflow: visible; }
+/* scena je veća od reda BIZNIS i širi se nagore, u prazan prostor desno od PRODAJ/KUPI */
+.hero-icon { --size: calc(clamp(84px, 20vw, 340px) * 1.25); }
+.hero-scene * { vector-effect: non-scaling-stroke; stroke-width: 5px; }
+.hero-scene .nofill { fill: none; }
+.hero-scene > g { opacity: 0; }
+@media (max-width: 1200px) { .hero-scene * { stroke-width: 4px; } }
+@media (max-width: 760px) { .hero-scene * { stroke-width: 3px; } }
 @media (max-width: 600px) {
   .hero-head { position: relative; }
   .hero-icon {
-    --size: 21vw;
+    --size: 26vw;
     position: absolute;
     right: 0;
     bottom: calc(24px - 0.0573 * 27vw);
     margin: 0;
   }
-  .hero-icon .hi { stroke-width: 2.4; }
+  .hero-scene * { stroke-width: 2.2px; }
+}
+
+/* PRODAJ: donja ruka donosi prodavnicu */
+.hero-icon.is-prodaj .sc-bh,
+.hero-icon.is-prodaj .sc-shop { animation: sc-bh-in 3s cubic-bezier(.22,1,.36,1) forwards; }
+.hero-icon.is-prodaj .sc-note,
+.hero-icon.is-prodaj .sc-th { opacity: 0; }
+
+/* KUPI: gornja ruka donosi novčanicu, uzima prodavnicu i odlazi */
+.hero-icon.is-kupi .sc-th { animation: sc-th-kupi 3s ease-in-out forwards; }
+.hero-icon.is-kupi .sc-note { animation: sc-note-kupi 3s ease-in-out forwards; }
+.hero-icon.is-kupi .sc-shop { animation: sc-shop-kupi 3s ease-in-out forwards; }
+.hero-icon.is-kupi .sc-bh { animation: sc-bh-kupi 3s ease-in-out forwards; }
+
+@keyframes sc-bh-in {
+  0%   { opacity: 0; transform: translate(-100px, 40px); }
+  30%  { opacity: 1; transform: none; }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes sc-th-kupi {
+  0%   { opacity: 0; transform: translate(90px, -90px); }
+  22%  { opacity: 1; transform: none; }
+  58%  { opacity: 1; transform: none; }
+  86%  { opacity: 0; transform: translate(90px, -90px); }
+  100% { opacity: 0; transform: translate(90px, -90px); }
+}
+@keyframes sc-note-kupi {
+  0%   { opacity: 0; transform: translate(90px, -90px); }
+  22%  { opacity: 1; transform: none; }
+  40%  { opacity: 1; transform: translate(0, 60px); }
+  84%  { opacity: 1; transform: translate(0, 60px); }
+  100% { opacity: 0; transform: translate(-100px, 100px); }
+}
+@keyframes sc-shop-kupi {
+  0%   { opacity: 1; transform: none; }
+  40%  { opacity: 1; transform: none; }
+  52%  { opacity: 1; transform: translate(0, -32px); }
+  58%  { opacity: 1; transform: translate(0, -32px); }
+  86%  { opacity: 0; transform: translate(90px, -122px); }
+  100% { opacity: 0; transform: translate(90px, -122px); }
+}
+@keyframes sc-bh-kupi {
+  0%   { opacity: 1; transform: none; }
+  84%  { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translate(-100px, 40px); }
 }
 
 /* ---------- Hero: paragraf levo, dugmad desno, centrirano ---------- */
