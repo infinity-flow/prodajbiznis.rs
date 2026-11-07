@@ -114,36 +114,60 @@
     nxt.classList.add("is-active");
   }
 
-  /* Ikonica se iscrta linijom, stoji, pa se "odcrta" unazad — u ritmu reči */
+  /* Ikonica se iscrta linijom (GSAP DrawSVG), stoji, pa se povuče unazad — u ritmu reči */
   var PHASE_MS = 4000;
   var draw = document.querySelector("[data-draw]");
   var drawIcons = draw ? [].slice.call(draw.querySelectorAll(".draw-icon")) : [];
-  var canAnimate = drawIcons.length && typeof Element.prototype.animate === "function";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasGsap = !!(window.gsap && window.DrawSVGPlugin);
+  var drawTl = null;
+
+  if (hasGsap) {
+    gsap.registerPlugin(DrawSVGPlugin);
+    drawIcons.forEach(function (g) {
+      gsap.set(g, { autoAlpha: 0, transformOrigin: "50% 60%" });
+      gsap.set(g.querySelectorAll(".ln"), { drawSVG: "0%" });
+      gsap.set(g.querySelectorAll(".fill"), { opacity: 0 });
+    });
+  }
 
   function drawPhase(idx) {
     if (!drawIcons.length) return;
-    drawIcons.forEach(function (g, k) { g.classList.toggle("is-on", k === idx); });
-    var paths = [].slice.call(drawIcons[idx].querySelectorAll("path"));
-    if (!canAnimate || reduceMotion) {
-      paths.forEach(function (p) { p.style.strokeDashoffset = "0"; });
+    var g = drawIcons[idx];
+    if (!hasGsap || reduceMotion) {
+      drawIcons.forEach(function (x, k) { x.style.opacity = k === idx ? 1 : 0; x.style.visibility = k === idx ? "visible" : "hidden"; });
       return;
     }
-    var n = paths.length;
-    var stagger = Math.min(70, 900 / n);   // ukupno ~0.9s razmaka
-    var drawDur = 1100, eraseDur = 700;
-    var eraseStart = PHASE_MS - eraseDur - 120 - stagger * 0.5 * (n - 1);
-    paths.forEach(function (p, j) {
-      p.getAnimations().forEach(function (a) { a.cancel(); });
-      // iscrtavanje redom
-      p.animate([{ strokeDashoffset: 1.02 }, { strokeDashoffset: 0 }], {
-        duration: drawDur, delay: 150 + j * stagger, easing: "cubic-bezier(.65,0,.35,1)", fill: "both"
-      });
-      // nazad, obrnutim redom
-      p.animate([{ strokeDashoffset: 0 }, { strokeDashoffset: 1.02 }], {
-        duration: eraseDur, delay: eraseStart + (n - 1 - j) * stagger * 0.5, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards", composite: "replace"
-      });
-    });
+    if (drawTl) drawTl.progress(1).kill();
+    drawIcons.forEach(function (x) { if (x !== g) gsap.set(x, { autoAlpha: 0 }); });
+
+    var lines = g.querySelectorAll(".ln");
+    var fills = g.querySelectorAll(".fill");
+    var isCoin = g.classList.contains("draw-icon--coin");
+    var ridges = g.querySelectorAll(".ln--ridge");
+    var main = [].filter.call(lines, function (l) { return !l.classList.contains("ln--ridge"); });
+
+    var tl = gsap.timeline();
+    tl.set(g, { autoAlpha: 1 })
+      .set(lines, { drawSVG: "0%" })
+      .set(fills, { opacity: 0 })
+      // ulazak: blago "sleganje" dok se crta
+      .fromTo(g, { scale: 0.94, y: 6, rotation: isCoin ? -8 : 0 },
+        { scale: 1, y: 0, rotation: 0, duration: 1.6, ease: "power3.out" }, 0.1)
+      // potezi redom
+      .fromTo(main, { drawSVG: "0%" },
+        { drawSVG: "100%", duration: 0.85, ease: "power2.inOut", stagger: isCoin ? 0.16 : 0.1 }, 0.15);
+    if (ridges.length) {
+      tl.fromTo(ridges, { drawSVG: "0%" }, { drawSVG: "100%", duration: 0.25, ease: "power1.out", stagger: 0.05 }, 0.75);
+    }
+    // završni detalj: ispuna (staklo izloga / lice novčića)
+    tl.to(fills, { opacity: 1, duration: 0.5, ease: "power1.out" }, ">-0.2")
+      // povlačenje unazad, obrnutim redom
+      .to(fills, { opacity: 0, duration: 0.25, ease: "power1.in" }, (PHASE_MS / 1000) - 1.05)
+      .to(lines, { drawSVG: "100% 100%", duration: 0.55, ease: "power2.in", stagger: { each: 0.035, from: "end" } }, (PHASE_MS / 1000) - 1.0)
+      .to(g, { scale: 0.97, y: -4, duration: 0.8, ease: "power2.in" }, (PHASE_MS / 1000) - 1.0)
+      .set(g, { autoAlpha: 0 });
+    drawTl = tl;
   }
 
   document.querySelectorAll("[data-rotator]").forEach(function (rot) {

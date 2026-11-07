@@ -1228,13 +1228,6 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
   width: 100%;
   overflow: visible;
 }
-.draw-scene path {
-  stroke-width: 2.6;
-  stroke-dasharray: 1 2;
-  stroke-dashoffset: 1.02;
-}
-.draw-icon { opacity: 0; }
-.draw-icon.is-on { opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .draw-icon.is-on path { stroke-dashoffset: 0; }
-}
+.draw-scene .ln { stroke-width: 0.9; }
+.draw-scene .fill { fill: #efefec; stroke: none; }
+.draw-icon { visibility: hidden; }
