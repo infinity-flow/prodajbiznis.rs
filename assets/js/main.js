@@ -105,20 +105,14 @@
     var words = [].slice.call(rot.querySelectorAll(".rw"));
     if (words.length < 2) return;
     var scene = document.querySelector("[data-scene]");
-    var phases = ["is-prodaj", "is-kupi"];
-    function playScene(idx) {
-      if (!scene) return;
-      scene.classList.remove("is-prodaj", "is-kupi");
-      void scene.getBoundingClientRect();
-      scene.classList.add(phases[idx % phases.length]);
-    }
+    var icons = scene ? [].slice.call(scene.querySelectorAll(".hi")) : [];
     var i = 0;
-    playScene(0);
+    if (icons[0]) setTimeout(function () { icons[0].classList.add("is-active"); }, 250);
     setInterval(function () {
       if (document.hidden) return;
       var n = (i + 1) % words.length;
       stepSet(words, i, n);
-      playScene(n);
+      if (icons.length === words.length) stepSet(icons, i, n);
       i = n;
     }, 3000);
   });
