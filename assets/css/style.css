@@ -1002,3 +1002,11 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 @media (max-width: 600px) { .hero h1 { font-size: 27vw; } }
 .footer-bottom .credit { color: var(--white); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .footer-bottom .credit:hover { text-decoration-thickness: 2px; }
+
+/* ---------- Header se sklanja na skrol ---------- */
+.site-header { transition: transform .35s var(--ease); will-change: transform; }
+.nav-hidden .site-header { transform: translateY(-100%); }
+.filters { transition: top .35s var(--ease); }
+.nav-hidden .filters { top: 0; }
+.nav-hidden .form-aside { top: 36px; }
+.form-aside { transition: top .35s var(--ease); }

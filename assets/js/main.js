@@ -61,6 +61,31 @@
       "</div>";
   }
 
+  /* ---------- Header: sakrij na skrol dole, prikaži na skrol gore ---------- */
+
+  (function () {
+    var lastY = window.scrollY;
+    var ticking = false;
+    function update() {
+      var y = window.scrollY;
+      var delta = y - lastY;
+      if (document.body.classList.contains("menu-open") || y < 120) {
+        document.body.classList.remove("nav-hidden");
+      } else if (delta > 6) {
+        document.body.classList.add("nav-hidden");
+      } else if (delta < -6) {
+        document.body.classList.remove("nav-hidden");
+      }
+      if (Math.abs(delta) > 6) lastY = y;
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    // Ako tastaturom dođeš do linka u headeru, pokaži ga
+    if (header) header.addEventListener("focusin", function () { document.body.classList.remove("nav-hidden"); });
+  })();
+
   /* ---------- Hero rotator ---------- */
 
   document.querySelectorAll("[data-rotator]").forEach(function (rot) {
