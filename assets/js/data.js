@@ -17,15 +17,16 @@ window.SITE = {
 
 /* ----------------------------------------------------------
    INSTAGRAM RILSOVI
-   Dodati linkove u formatu: "https://www.instagram.com/reel/XXXXXXXX/"
+   video/poster: fajlovi u assets/video (540x960 mp4 + jpg kadar)
+   url: link ka rilsu na Instagramu (dugme ↗ u uvećanom prikazu)
    Dok je lista prazna, prikazuju se placeholder kartice.
    ---------------------------------------------------------- */
 window.REELS = [
-  "https://www.instagram.com/reel/DfcaDcsN1Z3/",
-  "https://www.instagram.com/reel/DfWfwj8NYM-/",
-  "https://www.instagram.com/reel/DfSoqQ0tRWT/",
-  "https://www.instagram.com/reel/DfHbKSpNeoK/",
-  "https://www.instagram.com/reel/DfFIGD2tqRW/"
+  { video: "assets/video/reel-1.mp4", poster: "assets/video/reel-1.jpg", url: "https://www.instagram.com/reel/DfWfwj8NYM-/" },
+  { video: "assets/video/reel-2.mp4", poster: "assets/video/reel-2.jpg", url: "https://www.instagram.com/reel/DfcaDcsN1Z3/" },
+  { video: "assets/video/reel-3.mp4", poster: "assets/video/reel-3.jpg", url: "https://www.instagram.com/reel/DfSoqQ0tRWT/" },
+  { video: "assets/video/reel-4.mp4", poster: "assets/video/reel-4.jpg", url: "https://www.instagram.com/reel/DfHbKSpNeoK/" },
+  { video: "assets/video/reel-5.mp4", poster: "assets/video/reel-5.jpg", url: "https://www.instagram.com/reel/DfFIGD2tqRW/" }
 ];
 
 /* ----------------------------------------------------------

@@ -236,12 +236,118 @@
   var reelsTrack = document.getElementById("reels-track");
   if (reelsTrack) {
     var REELS = window.REELS || [];
+    var ICON_MUTED = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor"/><path d="m23 9-6 6M17 9l6 6"/></svg>';
+    var ICON_SOUND = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
+    function setMuteBtn(btn, muted) {
+      btn.innerHTML = muted ? ICON_MUTED : ICON_SOUND;
+      btn.setAttribute("aria-label", muted ? "Uključi zvuk" : "Isključi zvuk");
+      btn.setAttribute("aria-pressed", muted ? "false" : "true");
+    }
+
     if (REELS.length) {
-      reelsTrack.innerHTML = REELS.map(function (url, i) {
-        var m = String(url).match(/instagram\.com\/(?:reel|p|tv)\/([A-Za-z0-9_-]+)/);
-        if (!m) return "";
-        return '<div class="reel reel--embed"><iframe src="https://www.instagram.com/reel/' + m[1] + '/embed/" loading="lazy" scrolling="no" title="Instagram rils ' + (i + 1) + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
+      reelsTrack.innerHTML = REELS.map(function (r, i) {
+        return '<div class="reel reel--video" data-i="' + i + '">' +
+          '<video src="' + r.video + '" poster="' + r.poster + '" muted loop playsinline preload="metadata" aria-label="' + esc(r.title || "Rils " + (i + 1)) + '"></video>' +
+          '<button type="button" class="reel__open" aria-label="Otvori video: ' + esc(r.title || "Rils " + (i + 1)) + '"></button>' +
+          '<button type="button" class="reel__mute"></button>' +
+        "</div>";
       }).join("");
+
+      var vids = [].slice.call(reelsTrack.querySelectorAll("video"));
+      reelsTrack.querySelectorAll(".reel__mute").forEach(function (b) { setMuteBtn(b, true); });
+
+      // Puštaj samo videe koji su na ekranu (štedi bateriju i podatke)
+      if ("IntersectionObserver" in window) {
+        var vio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); }
+            else e.target.pause();
+          });
+        }, { threshold: 0.25 });
+        vids.forEach(function (v) { vio.observe(v); });
+      } else {
+        vids.forEach(function (v) { v.play(); });
+      }
+
+      reelsTrack.addEventListener("click", function (e) {
+        var card = e.target.closest(".reel--video");
+        if (!card) return;
+        var v = card.querySelector("video");
+        if (e.target.closest(".reel__mute")) {
+          var willUnmute = v.muted;
+          // samo jedan video sa zvukom u isto vreme
+          if (willUnmute) {
+            vids.forEach(function (o, k) { if (o !== v && !o.muted) { o.muted = true; setMuteBtn(reelsTrack.querySelectorAll(".reel__mute")[k], true); } });
+          }
+          v.muted = !willUnmute;
+          setMuteBtn(e.target.closest(".reel__mute"), v.muted);
+          if (!v.muted) v.play();
+          return;
+        }
+        openReel(parseInt(card.getAttribute("data-i"), 10));
+      });
+
+      // Lightbox
+      var lb = document.createElement("dialog");
+      lb.className = "reel-lightbox";
+      lb.innerHTML =
+        '<div class="reel-lightbox__inner">' +
+          '<video playsinline loop></video>' +
+          '<div class="reel-lightbox__bar">' +
+            '<button type="button" class="icon-btn icon-btn--dark" data-act="prev" aria-label="Prethodni video">←</button>' +
+            '<button type="button" class="icon-btn icon-btn--dark reel-lightbox__mute"></button>' +
+            '<a class="icon-btn icon-btn--dark" data-act="ig" target="_blank" rel="noopener" aria-label="Otvori na Instagramu">↗</a>' +
+            '<button type="button" class="icon-btn icon-btn--dark" data-act="next" aria-label="Sledeći video">→</button>' +
+          "</div>" +
+        "</div>" +
+        '<button type="button" class="reel-lightbox__close" aria-label="Zatvori">×</button>';
+      document.body.appendChild(lb);
+      var lbVideo = lb.querySelector("video");
+      var lbMute = lb.querySelector(".reel-lightbox__mute");
+      var lbIg = lb.querySelector('[data-act="ig"]');
+      var current = 0;
+
+      function loadLb(i) {
+        current = (i + REELS.length) % REELS.length;
+        var r = REELS[current];
+        lbVideo.src = r.video;
+        lbVideo.poster = r.poster;
+        lbIg.href = r.url || S.instagram;
+        var p = lbVideo.play(); if (p && p.catch) p.catch(function () {});
+        setMuteBtn(lbMute, lbVideo.muted);
+      }
+      function openReel(i) {
+        vids.forEach(function (v) { v.pause(); });
+        lbVideo.muted = true;
+        loadLb(i);
+        if (typeof lb.showModal === "function") lb.showModal(); else lb.setAttribute("open", "");
+      }
+      function closeLb() {
+        lbVideo.pause();
+        lbVideo.removeAttribute("src");
+        lbVideo.load();
+        if (lb.open) lb.close();
+      }
+      lb.addEventListener("close", function () {
+        lbVideo.pause();
+        vids.forEach(function (v) {
+          var r = v.getBoundingClientRect();
+          if (r.right > 0 && r.left < window.innerWidth && r.bottom > 0 && r.top < window.innerHeight) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        });
+      });
+      lb.addEventListener("click", function (e) {
+        if (e.target === lb || e.target.closest(".reel-lightbox__close")) { closeLb(); return; }
+        if (e.target.closest(".reel-lightbox__mute")) { lbVideo.muted = !lbVideo.muted; setMuteBtn(lbMute, lbVideo.muted); return; }
+        var act = e.target.closest("[data-act]");
+        if (act && act.getAttribute("data-act") === "prev") loadLb(current - 1);
+        if (act && act.getAttribute("data-act") === "next") loadLb(current + 1);
+        if (!act && e.target === lbVideo) { lbVideo.muted = !lbVideo.muted; setMuteBtn(lbMute, lbVideo.muted); }
+      });
+      document.addEventListener("keydown", function (e) {
+        if (!lb.open) return;
+        if (e.key === "ArrowRight") loadLb(current + 1);
+        if (e.key === "ArrowLeft") loadLb(current - 1);
+      });
     } else {
       var titles = ["Kako se procenjuje vrednost biznisa", "5 grešaka pre prodaje", "Šta kupac prvo pita", "Kako izgleda primopredaja", "Kupiti ili otvoriti novo?", "Zašto diskrecija znači sve"];
       reelsTrack.innerHTML = titles.map(function (t, i) {
