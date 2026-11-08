@@ -46,7 +46,7 @@
     footer.innerHTML =
       '<div class="wrap">' +
         '<div class="footer-grid">' +
-          '<div><p class="h3" style="max-width:14ch;margin:0">Pravi biznis. Pravi kupac. Bez buke.</p></div>' +
+          '<div><p class="h3" style="max-width:14ch;margin:0">Pravi biznis.<br>Pravi kupac.<br>Bez buke.</p></div>' +
           '<div><h4>Stranice</h4><ul>' + NAV.map(function (n) { return '<li><a href="' + n.href + '">' + n.label + "</a></li>"; }).join("") + "</ul></div>" +
           '<div><h4>Kontakt</h4><ul>' +
             '<li><a href="tel:' + S.phoneHref + '">' + S.phone + "</a></li>" +
@@ -58,6 +58,9 @@
           "</ul></div>" +
         "</div>" +
         '<div class="footer-logo"><img src="assets/img/logo-white.svg" alt="" width="583" height="94"></div>' +
+        '<div class="footer-marquee" aria-hidden="true"><div class="footer-marquee__track">' +
+          new Array(6).join('<img src="assets/img/logo-white.svg" alt="" width="583" height="94">') +
+        "</div></div>" +
         '<div class="footer-bottom"><span>© ' + new Date().getFullYear() + " Prodaj biznis. Sva prava zadržana.</span><span>Izrada sajta — <a href=\"https://infinityflow.rs\" target=\"_blank\" rel=\"noopener\" class=\"credit\">InfinityFlow</a></span></div>" +
       "</div>";
   }

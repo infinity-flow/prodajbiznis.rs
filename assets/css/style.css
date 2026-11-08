@@ -1316,3 +1316,56 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
   .btn--lg { min-height: 60px; padding: 0 22px; font-size: 14px; letter-spacing: .06em; }
   .cta-row .btn, .mt-l > .btn--lg { width: 100%; }
 }
+
+/* ==========================================================
+   MOBILNI PRIKAZ (do 760px): naslovi sekcija, footer
+   ========================================================== */
+.footer-marquee { display: none; }
+
+@media (max-width: 760px) {
+  /* H2 sekcija — krupno, kao "Hajde da pričamo" */
+  h2, .h2 { font-size: 16.5vw; line-height: .9; }
+  .section-head h2, .page-hero ~ section h2 { font-size: 16.5vw; }
+  .statement { font-size: 11.5vw; line-height: .95; }
+  .split__item h2 { font-size: 16.5vw; }
+  .modal h2 { font-size: 11vw; }
+  .mega, .huge { font-size: 16.5vw; line-height: .92; }
+
+  /* Footer: slogan veći */
+  .footer-grid > :first-child .h3 { font-size: 15vw; line-height: .9; max-width: none !important; }
+
+  /* Footer: logo kao beskonačna traka */
+  .footer-logo { display: none; }
+  .footer-marquee {
+    display: block;
+    overflow: hidden;
+    margin: 8px calc(-1 * var(--gutter)) 0;
+  }
+  .footer-marquee__track {
+    display: flex;
+    width: max-content;
+    gap: 48px;
+    animation: footer-marquee 22s linear infinite;
+  }
+  .footer-marquee__track img {
+    height: 26vw;
+    width: auto;
+    flex: none;
+    max-width: none;
+  }
+
+  /* Copyright i potpis centrirani */
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+}
+@keyframes footer-marquee {
+  /* 5 logoa; pomeri za dužinu jednog logoa + razmak, pa ponavlja bez trzaja */
+  to { transform: translateX(calc(-1 * (26vw * 583 / 94 + 48px))); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-marquee__track { animation: none; }
+}
