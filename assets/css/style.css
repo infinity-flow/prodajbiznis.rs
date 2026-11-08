@@ -1281,3 +1281,13 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 .reel--video { aspect-ratio: 9 / 16; }
 @media (max-width: 1100px) { .reel { flex-basis: calc((100% - 2 * 20px) / 3); } }
 @media (max-width: 760px)  { .reel { flex-basis: calc((100% - 20px) / 1.6); } }
+
+/* Strelica na karticama oglasa: crna, bez hover efekta */
+.card__price .go,
+.card:hover .card__price .go {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--white);
+  transform: none;
+  transition: none;
+}
