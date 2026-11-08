@@ -231,6 +231,7 @@
   if (featured) {
     featured.innerHTML = LISTINGS.filter(function (l) { return l.featured; }).slice(0, 6).map(cardHTML).join("");
   }
+  document.querySelectorAll("[data-listing-total]").forEach(function (el) { el.textContent = LISTINGS.length; });
   var countEl = document.querySelectorAll("[data-listing-count]");
   countEl.forEach(function (el) { el.textContent = LISTINGS.filter(function (l) { return l.status === "aktivno"; }).length; });
 
