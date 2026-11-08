@@ -1266,3 +1266,18 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
 /* providno dugme iznad slike ruku dobija belu pozadinu */
 .hero .btn--ghost { background: var(--white); }
 .hero .btn--ghost:hover { background: var(--black); }
+
+/* ---------- Rilsovi u marginama sadržaja, poravnati levo ---------- */
+.reels {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.reels__track {
+  padding: 0 0 8px;
+  scroll-padding-left: 0;
+}
+.reel { flex: 0 0 calc((100% - 3 * 20px) / 4); }
+.reel--video { aspect-ratio: 9 / 16; }
+@media (max-width: 1100px) { .reel { flex-basis: calc((100% - 2 * 20px) / 3); } }
+@media (max-width: 760px)  { .reel { flex-basis: calc((100% - 20px) / 1.6); } }
