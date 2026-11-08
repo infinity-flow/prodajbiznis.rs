@@ -1291,3 +1291,28 @@ main > .section.on-dark:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0;
   transform: none;
   transition: none;
 }
+
+/* ---------- Mobilni meni: header ne sme da "zarobi" fiksni meni ---------- */
+@media (max-width: 960px) {
+  .site-header {
+    background: var(--white);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    will-change: auto;
+  }
+  .nav { height: calc(100dvh - 76px); }
+}
+
+/* Proces na telefonu/tabletu: bez linije, svaki korak se pali kad se pojavi */
+@media (max-width: 960px) {
+  .steps--progress::before { display: none; }
+  .steps--progress { border-top-color: var(--white); }
+  .steps--progress .step.is-lit { opacity: 1; transition-delay: 0s; }
+}
+
+/* Dugmad na telefonu: u jednom redu */
+.btn { white-space: nowrap; }
+@media (max-width: 600px) {
+  .btn--lg { min-height: 60px; padding: 0 22px; font-size: 14px; letter-spacing: .06em; }
+  .cta-row .btn, .mt-l > .btn--lg { width: 100%; }
+}

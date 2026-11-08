@@ -91,11 +91,20 @@
 
   document.querySelectorAll("[data-progress]").forEach(function (el) {
     if (!("IntersectionObserver" in window)) { el.classList.add("is-run"); return; }
+    var stacked = window.matchMedia("(max-width: 960px)").matches;
+    if (stacked) {
+      // telefon/tablet: koraci su jedan ispod drugog — svaki se pali kad uđe na ekran
+      var so = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-lit"); so.unobserve(e.target); } });
+      }, { rootMargin: "0px 0px -20% 0px" });
+      el.querySelectorAll(".step").forEach(function (s) { so.observe(s); });
+      return;
+    }
     var o = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { el.classList.add("is-run"); o.disconnect(); }
       });
-    }, { threshold: 0.45 });
+    }, { rootMargin: "0px 0px -25% 0px" });
     o.observe(el);
   });
 
